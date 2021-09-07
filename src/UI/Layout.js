@@ -14,15 +14,16 @@ const Layout = () =>
     const dispatch = useDispatch();
     
     
+    //Reinicio en store de informacion activa
     useEffect(() => 
     {
-        
         dispatch( setActiveTask( { title : "", description : "" } ) );
     
     },[dispatch]);
 
  
 
+    //Rescate info Inputs
     const initFormValues = 
     { 
         taskTitle : "", 
@@ -32,6 +33,9 @@ const Layout = () =>
     };
     const [ formValues, handleInputChange, reset ] = useForm( initFormValues );
     const { taskTitle, taskDesc, actTaskTitle, actTaskDesc } = formValues;
+    
+    
+    //Creación nueva tarea
     const handleNewTask = (e) =>
     {
         
@@ -62,7 +66,7 @@ const Layout = () =>
     };
 
 
-    
+    //Activación panel edición
     const handleActivateEdit = ( id ) =>
     {
         setEdit( true );
@@ -72,6 +76,7 @@ const Layout = () =>
     };
 
 
+    //Edición de tarea por id
     const handleEditTask = (e) =>
     {
 
@@ -111,6 +116,7 @@ const Layout = () =>
     };
 
 
+    //Cierre panel edición
     const handleCancelEdit = () => 
     {
         setEdit( false );  
@@ -118,10 +124,11 @@ const Layout = () =>
     };
 
 
+    //Eliminacio de tarea por id
     const handleDelete = ( id, title ) =>
     {
         
-
+        //Validacion eliminación
         let opcion = window.confirm(`¿Estas seguro de eliminar la tarea ${title}?`);
         if (opcion === true) 
         {
@@ -139,6 +146,7 @@ const Layout = () =>
     };
 
 
+    //Ingreso nueva tarea con tecla enter
     const accionEnter = ( event ) =>
     {
         
