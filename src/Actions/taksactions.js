@@ -5,11 +5,11 @@ import { types } from "../Type/types";
 
 const loadNewTask = ( tasks ) => ( { type : types.load, payload : tasks } );
 
-const setActive = ( taskId ) => ( { type : types.active, payload : taskId } );
+const setActiveEdit = ( bool ) => ( { type : types.activeEdit, payload : bool } );
 
 const setActiveTask = ( activeTask ) => ( { type : types.activeTask, payload : activeTask } );
 
 
 //////---------------------------------------------->>>>>
 
-export { loadNewTask, setActive, setActiveTask };
+export { loadNewTask, setActiveEdit, setActiveTask };

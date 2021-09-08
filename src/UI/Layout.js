@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useForm } from '../Hook/useForm';
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
-import { loadNewTask, setActiveTask } from '../Actions/taksactions';
+import { loadNewTask, setActiveEdit, setActiveTask } from '../Actions/taksactions';
+import AddTask from './AddTask';
+import EditTask from './EditTask';
+
 
 //////<<<<<------------------------------------------------``
 
 const Layout = () => 
 {
 
-    const { currentTasks, activeTask } = useSelector( state => state.tasks );
-    const [ edit, setEdit ] = useState( false );
     const dispatch = useDispatch();
-    
+    const { currentTasks, activeTask, activeEdit } = useSelector( state => state.tasks );
+ 
     
     //Reinicio en store de informacion activa
     useEffect(() => 
@@ -22,105 +22,13 @@ const Layout = () =>
     },[dispatch]);
 
  
-
-    //Rescate info Inputs
-    const initFormValues = 
-    { 
-        taskTitle : "", 
-        taskDesc : "" ,
-        actTaskTitle : "",
-        actTaskDesc : ""
-    };
-    const [ formValues, handleInputChange, reset ] = useForm( initFormValues );
-    const { taskTitle, taskDesc, actTaskTitle, actTaskDesc } = formValues;
-    
-    
-    //Creación nueva tarea
-    const handleNewTask = (e) =>
-    {
-        
-        e.preventDefault();
-
-        if( !taskTitle.trim() || !taskDesc.trim() )
-        {
-            alert( "Titulo y descripcion de la tarea son obligatorios" );
-            return;
-        };
-
-        const currentDate = moment().format('DD-MM-YYYY');
-
-
-        currentTasks.push({ 
-
-            id: currentTasks[currentTasks.length - 1] ? currentTasks[currentTasks.length - 1].id+1 : 1, 
-            title : taskTitle, 
-            description : taskDesc, 
-            date : currentDate
-            
-        })
-
-        dispatch( loadNewTask( currentTasks ) )
-        
-        reset();
-
-    };
-
-
     //Activación panel edición
     const handleActivateEdit = ( id ) =>
     {
-        setEdit( true );
+        dispatch( setActiveEdit( true ) );
         const active = currentTasks.find( ( task ) => task.id === id );
         dispatch( setActiveTask( active ) );
 
-    };
-
-
-    //Edición de tarea por id
-    const handleEditTask = (e) =>
-    {
-
-        e.preventDefault();
- 
-        if( !actTaskTitle || !actTaskDesc )
-        {
-            alert( "campos son obligatorios" )
-            return;
-        };
-
-
-        currentTasks.find( ( task ) => 
-        {
-            
-            if( task.id === activeTask.id )
-            {
-                if( !actTaskTitle.trim() || !actTaskDesc.trim() )
-                {
-                    return;
-                };
-
-                task.title = actTaskTitle;
-                task.description = actTaskDesc;
-            };
-
-        })
-
-        dispatch( loadNewTask( currentTasks ) )
-        
-        alert( "Actualizado con exito" );
-
-        reset();
-
-        setEdit( false );
-
-    };
-
-
-    //Cierre panel edición
-    const handleCancelEdit = () => 
-    {
-        setEdit( false );  
-        dispatch( setActiveTask( false ) );
     };
 
 
@@ -179,44 +87,14 @@ const Layout = () =>
                         <div className="card-body">
                             
                         {
-                            !edit ?
-                            <form onSubmit={ handleNewTask }>
-
-                                <div className="form-group">
-                                    <input className="form-control" name="taskTitle" placeholder="Title task" value={ taskTitle } onChange={ handleInputChange }/>
-                                </div>
-
-                                <div className="form-group mt-4">
-                                    <input className="form-control"  name="taskDesc" placeholder="Description" value={ taskDesc } onChange={ handleInputChange }/>
-                                </div>
-
-                                <div className="form-group mt-4">
-                                    <button id="newtask" className="form-control btn btn-primary">New Task</button>
-                                </div>
-
-                            </form>
+                            !activeEdit ?
+                            
+                            <AddTask currentTasks={ currentTasks } />
                             
                             :
                             
-                            <form onSubmit={ handleEditTask }>
-
-                                <div className="form-group">
-                                    <input className="form-control" name="actTaskTitle" placeholder="New Title task" value={ actTaskTitle } onChange={ handleInputChange }/>
-                                </div>
-
-                                <div className="form-group mt-4">
-                                    <input className="form-control" name="actTaskDesc" placeholder="New Description" value={ actTaskDesc } onChange={ handleInputChange }/>
-                                </div>
-
-                                <div className="form-group mt-4">
-                                    <button className="form-control btn btn-warning base__white">Edit Task</button>
-                                </div>
-
-                                <div className="form-group mt-4">
-                                    <button onClick={ handleCancelEdit } className="form-control btn btn-warning base__white">Cancelar</button>
-                                </div>
-
-                            </form>
+                            <EditTask currentTasks={ currentTasks} activeTask={ activeTask }  />
+                           
                         }
 
                         </div>
@@ -259,7 +137,7 @@ const Layout = () =>
                                                 <th scope="row">{ task.id }</th>
                                                 <td>{ task.title }</td>
                                                 <td>{ task.description }</td>
-                                                <td><button className="btn btn-warning base__white" onClick={ () => { handleActivateEdit( task.id ) } }><i className="fas fa-edit"></i></button></td>
+                                                <td><button className="btn btn-warning base__white" disabled={ activeEdit ? true : false } onClick={ () => { handleActivateEdit( task.id ) } }><i className="fas fa-edit"></i></button></td>
                                                 <td><button className="btn btn-danger" onClick={ () => { handleDelete( task.id, task.title ) } }><i className="fas fa-trash-alt"></i></button></td>
                                                 
                                             </tr>

@@ -15,6 +15,7 @@ const initState =
 {
     currentTasks : task,
     activeTask : { title : "", description : "" },
+    activeEdit : false
 };
 
 
@@ -26,6 +27,8 @@ const taskReducer = ( state = initState, action ) =>
         case types.load : return { ...state, currentTasks : action.payload };
 
         case types.activeTask : return { ...state, activeTask : action.payload };
+
+        case types.activeEdit : return { ...state, activeEdit : action.payload };
 
         default: return state;  
     };
