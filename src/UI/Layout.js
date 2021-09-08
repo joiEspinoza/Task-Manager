@@ -13,7 +13,7 @@ const Layout = () =>
     const dispatch = useDispatch();
     const { currentTasks, activeTask, activeEdit } = useSelector( state => state.tasks );
  
-    
+
     //Reinicio en store de informacion activa
     useEffect(() => 
     {
@@ -121,6 +121,7 @@ const Layout = () =>
                                         <th className="col">Id</th>
                                         <th className="col">Tarea</th>
                                         <th className="col">Descripción</th>
+                                        <th className="col">Fecha</th>
                                         <th className="col">Actualizar</th>
                                         <th className="col">Eliminar</th>
                                     </tr>
@@ -137,6 +138,7 @@ const Layout = () =>
                                                 <th scope="row">{ task.id }</th>
                                                 <td>{ task.title }</td>
                                                 <td>{ task.description }</td>
+                                                <td>{ task.date }</td>
                                                 <td><button className="btn btn-warning base__white" disabled={ activeEdit ? true : false } onClick={ () => { handleActivateEdit( task.id ) } }><i className="fas fa-edit"></i></button></td>
                                                 <td><button className="btn btn-danger" onClick={ () => { handleDelete( task.id, task.title ) } }><i className="fas fa-trash-alt"></i></button></td>
                                                 
