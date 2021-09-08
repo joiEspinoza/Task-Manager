@@ -64,15 +64,15 @@ const AddTask = ( { currentTasks } ) =>
         <form onSubmit={ handleNewTask }>
 
             <div className="form-group">
-                <input className="form-control" name="taskTitle" placeholder="Title task" value={ taskTitle } onChange={ handleInputChange }/>
+                <input className="form-control" name="taskTitle" placeholder="Titulo de la tarea" value={ taskTitle } onChange={ handleInputChange }/>
             </div>
 
             <div className="form-group mt-4">
-                <input className="form-control"  name="taskDesc" placeholder="Description" value={ taskDesc } onChange={ handleInputChange }/>
+                <input className="form-control"  name="taskDesc" placeholder="Descripción" value={ taskDesc } onChange={ handleInputChange }/>
             </div>
 
             <div className="form-group mt-4">
-                <button id="newtask" className="form-control btn btn-primary">New Task</button>
+                <button id="newtask" className="form-control btn btn-primary">Crear Tarea</button>
             </div>
 
         </form>

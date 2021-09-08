@@ -79,15 +79,15 @@ const EditTask = ( { currentTasks, activeTask } ) =>
         <form onSubmit={ handleEditTask }>
 
             <div className="form-group">
-                <input className="form-control" name="actTaskTitle" placeholder="New Title task" value={ actTaskTitle } onChange={ handleInputChange }/>
+                <input className="form-control" name="actTaskTitle" placeholder="Nuevo titulo" value={ actTaskTitle } onChange={ handleInputChange }/>
             </div>
 
             <div className="form-group mt-4">
-                <input className="form-control" name="actTaskDesc" placeholder="New Description" value={ actTaskDesc } onChange={ handleInputChange }/>
+                <input className="form-control" name="actTaskDesc" placeholder="Nueva Descripción" value={ actTaskDesc } onChange={ handleInputChange }/>
             </div>
 
             <div className="form-group mt-4">
-                <button className="form-control btn btn-warning base__white">Edit Task</button>
+                <button className="form-control btn btn-warning base__white">Editar tarea</button>
             </div>
 
             <div className="form-group mt-4">
