@@ -18,7 +18,7 @@ const EditTask = ( { currentTasks, activeTask } ) =>
         actTaskTitle : activeTask.title,
         actTaskDesc : activeTask.description
     };
-    const [ formValues, handleInputChange, reset ] = useForm( initFormValues );
+    const [ formValues, handleInputChange ] = useForm( initFormValues );
     const { actTaskTitle, actTaskDesc } = formValues;
 
 
@@ -28,9 +28,17 @@ const EditTask = ( { currentTasks, activeTask } ) =>
 
         e.preventDefault();
 
-        if( !actTaskTitle || !actTaskDesc )
+        //Validacion entradas
+        if( !actTaskTitle.trim() )
         {
-            alert( "campos son obligatorios" )
+            alert( "El titulo es obligatorio" )
+            return;
+        };
+
+
+        if( !actTaskDesc.trim() )
+        {
+            alert( "La descripción es obligatoria" )
             return;
         };
 
@@ -40,11 +48,6 @@ const EditTask = ( { currentTasks, activeTask } ) =>
             
             if( task.id === activeTask.id )
             {
-                if( !actTaskTitle.trim() || !actTaskDesc.trim() )
-                {
-                    return;
-                };
-
                 task.title = actTaskTitle;
                 task.description = actTaskDesc;
             };
@@ -54,8 +57,6 @@ const EditTask = ( { currentTasks, activeTask } ) =>
         dispatch( loadNewTask( currentTasks ) )
         
         alert( "Actualizado con exito" );
-
-        reset();
 
         dispatch( setActiveEdit( false ) );
 

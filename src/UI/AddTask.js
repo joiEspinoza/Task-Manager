@@ -29,17 +29,18 @@ const AddTask = ( { currentTasks } ) =>
         
         e.preventDefault();
 
+        //Validacion entradas
         if( !taskTitle.trim() || !taskDesc.trim() )
         {
             alert( "Titulo y descripcion de la tarea son obligatorios" );
             return;
         };
 
-        const currentDate = moment().format('DD-MM-YYYY');
 
-
+        const currentDate = moment().format( 'DD-MM-YYYY' );
         currentTasks.push({ 
 
+            //Si id no existe resetea a 1
             id: currentTasks[currentTasks.length - 1] ? currentTasks[currentTasks.length - 1].id+1 : 1, 
             title : taskTitle, 
             description : taskDesc, 

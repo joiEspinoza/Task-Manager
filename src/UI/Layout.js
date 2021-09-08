@@ -77,23 +77,34 @@ const Layout = () =>
     return (
         
         <div className="container">
-        
-            <div className="row p-5">
+            
+            <div className="row mt-5">
+                
+                <div className="col-md-12 col-12 text-center">
+                    
+                    <h3>||-- Task Manager --||</h3>
+               
+                </div>
+            
+            </div>
+            
+            <div className="row p-5 mt-2">
                 
                 <div className="col-md-12 col-12 base__flexCenter">
 
-                    <div className="card p-3 layout__boxShadowCard" style={{ width : "100%"}}>
+                    <div className="card p-3 layout__boxShadowCard" style={{ width : "100%" }}>
                         
                         <div className="card-body">
                             
                         {
+                            
                             !activeEdit ?
                             
                             <AddTask currentTasks={ currentTasks } />
                             
                             :
                             
-                            <EditTask currentTasks={ currentTasks} activeTask={ activeTask }  />
+                            <EditTask currentTasks={ currentTasks } activeTask={ activeTask }  />
                            
                         }
 
@@ -113,7 +124,7 @@ const Layout = () =>
                         
                         <div className="card-body">
                             
-                            <table className="table table-hover text-center">
+                            <table className="table table-hover text-center" >
                             
                                 <thead>
                                     
@@ -139,8 +150,8 @@ const Layout = () =>
                                                 <td>{ task.title }</td>
                                                 <td>{ task.description }</td>
                                                 <td>{ task.date }</td>
-                                                <td><button className="btn btn-warning base__white" disabled={ activeEdit ? true : false } onClick={ () => { handleActivateEdit( task.id ) } }><i className="fas fa-edit"></i></button></td>
-                                                <td><button className="btn btn-danger" onClick={ () => { handleDelete( task.id, task.title ) } }><i className="fas fa-trash-alt"></i></button></td>
+                                                <td><button className="btn btn-warning base__white" disabled={ activeEdit } onClick={ () => { handleActivateEdit( task.id ) } }><i className="fas fa-edit"></i></button></td>
+                                                <td><button className="btn btn-danger" disabled={ activeEdit } onClick={ () => { handleDelete( task.id, task.title ) } }><i className="fas fa-trash-alt"></i></button></td>
                                                 
                                             </tr>
 
