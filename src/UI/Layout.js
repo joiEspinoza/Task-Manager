@@ -78,16 +78,6 @@ const Layout = () =>
         
         <div className="container">
             
-            <div className="row mt-5">
-                
-                <div className="col-md-12 col-12 text-center">
-                    
-                    <h3>||-- Task Manager --||</h3>
-               
-                </div>
-            
-            </div>
-            
             <div className="row p-5 mt-2">
                 
                 <div className="col-md-12 col-12 base__flexCenter">
